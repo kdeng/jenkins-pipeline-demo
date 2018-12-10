@@ -38,6 +38,8 @@ def call(name="world") {
                     
             }
         }
+    } catch (e) {
+        throw e
     }
 
 }
