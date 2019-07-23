@@ -16,7 +16,10 @@ podTemplate(label: "app-tester",
     ) {
       node("app-tester") {
         container("tester") {
-          println "hello world"
+              stage("init") {
+                    
+                 println "hello world"
+              }
         }
       }
 
