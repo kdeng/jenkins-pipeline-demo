@@ -1,10 +1,23 @@
-node {
-  agent any
-  stages("test") {
-    steps {
-      step {
-        println "hello world"
+podTemplate(label: "app-tester",
+      containers: [
+        containerTemplate(
+          name: "tester",
+          image: "alpine",
+          alwaysPullImage: true,
+          ttyEnabled: true,
+          command: 'cat',
+          resourceRequestCpu: '.6',
+          resourceRequestMemory: '1024Mi'
+        )
+      ],
+      volumes: [
+        hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock'),
+      ]
+    ) {
+      node("app-tester") {
+        container("tester") {
+          println "hello world"
+        }
       }
+
     }
-  }
-}
